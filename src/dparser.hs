@@ -81,31 +81,31 @@ readDItem _ ('Z':ls) = (Z,ls)
 readDItem _ ('z':ls) = (Z,ls)
 -- 前のコマンド継続パターン
 readDItem prev@(Just _) (',':ls) = readDItem prev ls
-readDItem (Just (Move abs _)) str = (Line abs pos, lls)
+readDItem (Just (Move dabs _)) str = (Line dabs pos, lls)
     where (pos, lls) = readDPos str
-readDItem (Just (Line abs _)) str = (Line abs pos, lls)
+readDItem (Just (Line dabs _)) str = (Line dabs pos, lls)
     where (pos, lls) = readDPos str
-readDItem (Just (Hor abs _)) str = (Hor abs d, lls)
+readDItem (Just (Hor dabs _)) str = (Hor dabs d, lls)
     where (d, lls) = readDNumber str
-readDItem (Just (Vert abs _)) str = (Vert abs d, lls)
+readDItem (Just (Vert dabs _)) str = (Vert dabs d, lls)
     where (d, lls) = readDNumber str
-readDItem (Just (Curve abs _ _ _)) str = (Curve abs p1 p2 pos, lls)
+readDItem (Just (Curve dabs _ _ _)) str = (Curve dabs p1 p2 pos, lls)
     where
         (p1, l1s) = readDPos (skipDel str)
         (p2, l2s) = readDPos (skipDel l1s)
         (pos, lls) = readDPos (skipDel l2s)
-readDItem (Just (Scurve abs _ _)) str = (Scurve abs p1 pos, lls)
+readDItem (Just (Scurve dabs _ _)) str = (Scurve dabs p1 pos, lls)
     where
         (p1, l1s) = readDPos str
         (pos, lls) = readDPos l1s
-readDItem (Just (Quartic abs _ _)) str = (Quartic abs p1 pos, lls)
+readDItem (Just (Quartic dabs _ _)) str = (Quartic dabs p1 pos, lls)
     where
         (p1, l1s) = readDPos (skipDel str)
         (pos, lls) = readDPos (skipDel l1s)
-readDItem (Just (Turn abs _)) str = (Turn abs pos, lls)
+readDItem (Just (Turn dabs _)) str = (Turn dabs pos, lls)
     where
         (pos, lls) = readDPos (skipDel str)
-readDItem (Just (Arc abs _ _ _ _ _)) str = (Arc abs radius t f1 f2 pos, lls)
+readDItem (Just (Arc dabs _ _ _ _ _)) str = (Arc dabs radius t f1 f2 pos, lls)
     where
         (radius, l1s) = readDPos (skipDel str)
         (t, l2s) = readDNumber (skipDel l1s)

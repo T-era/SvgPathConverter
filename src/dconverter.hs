@@ -41,10 +41,10 @@ _toRel (Pos px py) (Vert True y:ls) = (Vert False (y-py)):(_toRel (Pos px y) ls)
 _toRel (Pos px py) (Vert False dy:ls) = (Vert False dy):(_toRel (Pos px (py+dy)) ls)
 _toRel prev (dItem:ls) = (nextItem):(_toRel nextPrev ls)
     where
-        nextItem = if not (dabs dItem)
-            then dItem
-            else toRelItem prev dItem
-        nextPrev = pos nextItem
+        nextItem = if dabs dItem
+            then toRelItem prev dItem
+            else dItem
+        nextPrev = addPos prev (pos nextItem)
 
 toRelItem :: Pos -> PathDItem -> PathDItem
 toRelItem prev (Move True pos) = Move False (subPos prev pos)
@@ -63,5 +63,10 @@ subPos (Pos px py) (Pos cx cy) = Pos (cx-px) (cy-py)
 
 
 __test = do
-  putStrLn$show$toAbs$readD "m 1 10 2 11"
-  putStrLn$show$toRel$readD "M 1 10 2 11"
+  --putStrLn$show$toAbs$readD "m-.1 10 -2 -11"
+  --putStrLn$show$toAbs$readD "m 1 10 2 11"
+  --putStrLn$show$toRel$readD "M 1 10 2 11"
+  putStrLn$show$readD "M 1 10C0 0,0 0,1 1H2V11"
+  putStrLn$show$toRel$readD "M 1 10C0 0,0 0,1 1H2V11"
+  putStrLn "m1.0 10.0c-1.0 -10.0,-1.0 -10.0,0.0 -9.0h1.0v10.0"
+  putStrLn$show$toAbs$readD "M 1 10c 0 0 0 0 1 1 h2v11"
