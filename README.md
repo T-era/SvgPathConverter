@@ -17,16 +17,16 @@ Path commands については [MDN参照](https://developer.mozilla.org/en-US/do
 
 複数のコマンドライン引数を指定した場合、指定した順序で変換を行います。
 
-#＃ サンプル
+## サンプル
 
 座標を相対指定に変換し、さらに2倍に拡大します
 
-```
+```bash
 $ svgdpathconv --rel --scale 2
 ```
 
 # ビルド
 
-```
+```bash
 $ ./build.sh
 ```
