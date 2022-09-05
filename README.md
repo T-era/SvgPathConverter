@@ -14,6 +14,7 @@ Path commands については [MDN参照](https://developer.mozilla.org/en-US/do
 座標を相対指定に変換する | `--rel`
 座標を絶対指定に変換する | `--abs`
 座標をn倍に拡大/縮小する | `--scale {n}`
+座標の数値を丸めて性数値にする | `--round`
 
 複数のコマンドライン引数を指定した場合、指定した順序で変換を行います。
 
